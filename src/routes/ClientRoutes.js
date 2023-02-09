@@ -19,4 +19,7 @@ router.get('/:id', middlewares, ClientController.getById);
 /** @description Eliminar de manera lógica un cliente */
 router.delete('/:id', middlewares, ClientController.remove);
 
+/** @description Modificar la información de un cliente */
+router.put('/:id', middlewares, ClientController.update);
+
 module.exports = router;
