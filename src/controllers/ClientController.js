@@ -1,3 +1,7 @@
+const { response } = require('express');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+
 const ClientModel = require('../models/ClientModel');
 
 /** Campos del modelo client */
@@ -16,20 +20,54 @@ const ClientModel = require('../models/ClientModel');
 // "updated_at"
 // "deleted_at"
 
+const getTokenBody = (client) => {
+  return {
+    id: client.id,
+    name: client.name,
+    last_name: client.last_name,
+    email: client.email,
+    phone: client.phone,
+    address: client.address,
+    img: client.img,
+    password: client.password,
+    condition: client.condition,
+    total_starts: client.total_starts,
+    num_qualification: client.num_qualification,
+    role: 'client',
+  };
+};
+
 const login = async (req, res) => {
-  response = await ClientModel.login();
-  res.json(response);
+  let { email, password } = req.body;
+  const client = await ClientModel.getByEmail(email);
+  const passwordIsCorrect = bcrypt.compareSync(password, client.password);
+
+  if (passwordIsCorrect && client) {
+    const tokenPayload = getTokenBody(client);
+    const token = jwt.sign(tokenPayload, process.env.JWT_SECRET);
+    res.send(token);
+  } else {
+    res.status(401).json({ message: 'Email o contraseña incorrecta' });
+  }
 };
 
 const signin = async (req, res) => {
-  const { email, password, name, last_name, phone, address } = req.body;
-  response = await ClientModel.sigin({
+  let { email, password, name, last_name, phone, address, img } = req.body;
+  // const previousUser = await UserModel.findByEmail(email, res);
+  // if (previousUser.length > 0) {
+  //   res.status(409).json({ message: 'El usuario ya existe' });
+  //   return;
+  // }
+  password = bcrypt.hashSync(password);
+
+  const response = await ClientModel.signin({
     email,
     password,
     name,
     last_name,
     phone,
     address,
+    img,
   });
   res.json(response);
 };
