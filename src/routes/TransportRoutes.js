@@ -19,4 +19,7 @@ router.get('/:id', middlewares, TransportController.getById);
 /** @description Eliminar de manera lógica un transportista */
 router.delete('/:id', middlewares, TransportController.remove);
 
+/** @description Modificar la información de un transportista */
+router.put('/:id', middlewares, TransportController.update);
+
 module.exports = router;

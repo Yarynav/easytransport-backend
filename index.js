@@ -11,8 +11,9 @@ app.listen(
 );
 app.use('/client', require('./src/routes/ClientRoutes'));
 app.use('/transport', require('./src/routes/TransportRoutes'));
+app.use('/trip', require('./src/routes/TripRoutes'));
+
 // app.use('/shipping', require('./src/routes/ShippingRoutes'));
-// app.use('/trip', require('./src/routes/TripRoutes'));
 // app.use('/truck', require('./src/routes/TruckRoutes'));
 
 app.get('*', (req, res) => {

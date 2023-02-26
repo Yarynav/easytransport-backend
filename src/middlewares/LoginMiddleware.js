@@ -1,7 +1,7 @@
 const { validateToken } = require('../helpers/validateToken');
 const { showError } = require('../helpers/errorHelper');
 
-const isLogin = async (req, res, next) => {
+const loginMiddleware = async (req, res, next) => {
   try {
     if (!req.header('Authorization')) {
       return res.status(401).send({ message: 'Por favor inicia sesion' });
@@ -18,4 +18,4 @@ const isLogin = async (req, res, next) => {
   }
 };
 
-module.exports = { isLogin };
+module.exports = { loginMiddleware };
