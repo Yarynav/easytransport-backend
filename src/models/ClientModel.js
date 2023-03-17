@@ -1,6 +1,15 @@
 const { pool, format } = require('../helpers/database');
 
-const login = async () => {};
+const getByEmail = async (email) => {
+  try {
+    const query = `SELECT * FROM client WHERE email= '%s' ORDER BY id DESC`;
+    const formatQuery = format(query, email);
+    const { rows } = await pool.query(formatQuery);
+    return rows[0];
+  } catch (e) {
+    console.log(e);
+  }
+};
 
 const getById = async (id) => {
   const query = 'SELECT * FROM client WHERE id= %s ORDER BY id DESC';
@@ -15,10 +24,18 @@ const remove = async (id) => {
   await pool.query(formatQuery);
 };
 
-const signin = async ({ email, password, name, last_name, phone, address }) => {
+const signin = async ({
+  email,
+  password,
+  name,
+  last_name,
+  phone,
+  address,
+  img,
+}) => {
   const query = `INSERT INTO client 
-  (email, password, name, last_name, phone, address) 
-  VALUES (%s, %s, %s, %s, %s, %s)`;
+  (email, password, name, last_name, phone, address, img) 
+  VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s')`;
   const formatQuery = format(
     query,
     email,
@@ -26,7 +43,8 @@ const signin = async ({ email, password, name, last_name, phone, address }) => {
     name,
     last_name,
     phone,
-    address
+    address,
+    img || ''
   );
   const { rows } = await pool.query(formatQuery);
   return rows[0];
@@ -57,4 +75,4 @@ const list = async () => {
   return rows;
 };
 
-module.exports = { login, list, getById, signin, remove, update };
+module.exports = { list, getById, getByEmail, signin, remove, update };
