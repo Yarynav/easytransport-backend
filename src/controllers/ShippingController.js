@@ -10,6 +10,16 @@ const getByClientId = async (req, res) => {
   }
 };
 
+const getById = async (req, res) => {
+  try {
+    const shippingId = req.params.id;
+    const shipping = await ShippingModel.getById(shippingId);
+    res.json(shipping);
+  } catch (e) {
+    res.status(500).json({ message: e + '' });
+  }
+};
+
 const update = async (req, res) => {
   try {
     const shippingId = req.params.id;
@@ -24,4 +34,5 @@ const update = async (req, res) => {
 module.exports = {
   getByClientId,
   update,
+  getById,
 };

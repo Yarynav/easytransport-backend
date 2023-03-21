@@ -9,5 +9,6 @@ const middlewares = [loggerMiddleware, loginMiddleware];
 router.get('/byClient', middlewares, ShippingController.getByClientId);
 
 router.put('/:id', middlewares, ShippingController.update);
+router.get('/:id', middlewares, ShippingController.getById);
 
 module.exports = router;
