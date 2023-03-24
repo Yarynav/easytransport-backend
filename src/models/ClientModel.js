@@ -75,4 +75,16 @@ const list = async () => {
   return rows;
 };
 
-module.exports = { list, getById, getByEmail, signin, remove, update };
+const duplicateUser = async (email) => {
+  try {
+    const values = [email]
+    const consulta = 'SELECT count(email) as num FROM client WHERE email = $1'
+    resp = await pool.query(consulta, values)
+    return resp.rows[0].num
+  } catch (error) {
+    return 'error'
+  }
+}
+
+
+module.exports = { list, getById, getByEmail, signin, remove, update, duplicateUser };
