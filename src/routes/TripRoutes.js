@@ -3,7 +3,8 @@ const router = express.Router();
 const TripController = require('../controllers/TripController');
 const { loggerMiddleware } = require('../middlewares/LoggerMiddleware');
 const { loginMiddleware } = require('../middlewares/LoginMiddleware');
-const middlewares = [loggerMiddleware, loginMiddleware];
+const { TripMiddleware } = require('../middlewares/TripMiddleware')
+const middlewares = [loggerMiddleware, loginMiddleware, TripMiddleware];
 
 // /** @description Iniciar sesión como un cliente  */
 // router.post('/login', loggerMiddleware, ClientController.login);
