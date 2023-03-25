@@ -72,6 +72,12 @@ const update = async (req, res) => {
   res.json(response);
 };
 
+const deleteByEmail = async (req, res) => {
+  const email = req.params.email;
+  const response = await TransportModel.deleteByEmail(email);
+  res.json(response);
+};
+
 module.exports = {
   login,
   signin,
@@ -79,4 +85,5 @@ module.exports = {
   getById,
   remove,
   update,
+  deleteByEmail,
 };

@@ -1,4 +1,30 @@
 const { pool, format } = require('../helpers/database');
+// FIELDS
+// -----------------
+// id
+// trip_id
+// transport_id
+// client_id
+// drive_phone
+// drive_name
+// origin_address
+// destiny_address
+// date_retirement
+// time_ini_retirement
+// time_end_retirement
+// date_delivery
+// time_ini_delivery
+// time_end_delivery
+// type_load_shipping
+// cubic_meters_shipping
+// weight_shipping
+// long_load_shipping
+// wide_load_shipping
+// high_load_shipping
+// status
+// created_at
+// updated_at
+// deleted_at
 
 const getByClientId = async (clientId) => {
   const formatQuery = format(
@@ -58,4 +84,58 @@ const update = async (
   return await getById(shippingId);
 };
 
-module.exports = { getByClientId, getById, update };
+const create = async (body) => {
+  const {
+    trip_id,
+    transport_id,
+    client_id,
+    drive_phone,
+    drive_name,
+    origin_address,
+    destiny_address,
+    date_retirement,
+    time_ini_retirement,
+    time_end_retirement,
+    date_delivery,
+    time_ini_delivery,
+    time_end_delivery,
+    type_load_shipping,
+    cubic_meters_shipping,
+    weight_shipping,
+    long_load_shipping,
+    wide_load_shipping,
+    high_load_shipping,
+    status,
+  } = body;
+  const query = `INSERT INTO shipping 
+  (trip_id, transport_id, client_id, drive_phone, drive_name, origin_address, destiny_address, date_retirement, time_ini_retirement, time_end_retirement, date_delivery, time_ini_delivery, time_end_delivery, type_load_shipping, cubic_meters_shipping, weight_shipping, long_load_shipping, wide_load_shipping, high_load_shipping, status) 
+  VALUES
+  ('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')`;
+  const formatQuery = format(
+    query,
+    trip_id,
+    transport_id,
+    client_id,
+    drive_phone,
+    drive_name,
+    origin_address,
+    destiny_address,
+    date_retirement,
+    time_ini_retirement,
+    time_end_retirement,
+    date_delivery,
+    time_ini_delivery,
+    time_end_delivery,
+    type_load_shipping,
+    cubic_meters_shipping,
+    weight_shipping,
+    long_load_shipping,
+    wide_load_shipping,
+    high_load_shipping,
+    status
+  );
+  await pool.query(formatQuery);
+  return await getById(shippingId);
+};
+
+module.exports = { getByClientId, getById, update, create };

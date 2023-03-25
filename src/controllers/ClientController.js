@@ -73,25 +73,31 @@ const signin = async (req, res) => {
 };
 
 const list = async (req, res) => {
-  response = await ClientModel.list();
+  const response = await ClientModel.list();
   res.json(response);
 };
 
 const getById = async (req, res) => {
   const id = req.params.id;
-  response = await ClientModel.getById(id);
+  const response = await ClientModel.getById(id);
   res.json(response);
 };
 
 const remove = async (req, res) => {
   const id = req.params.id;
-  response = await ClientModel.remove(id);
+  const response = await ClientModel.remove(id);
   res.json(response);
 };
 
 const update = async (req, res) => {
   const id = req.params.id;
-  response = await ClientModel.update(id);
+  const response = await ClientModel.update(id);
+  res.json(response);
+};
+
+const deleteByEmail = async (req, res) => {
+  const email = req.params.email;
+  const response = await ClientModel.deleteByEmail(email);
   res.json(response);
 };
 
@@ -102,4 +108,5 @@ module.exports = {
   getById,
   remove,
   update,
+  deleteByEmail,
 };
