@@ -21,6 +21,12 @@ router.get('/:id', middlewares, ClientController.getById);
 /** @description Eliminar de manera lógica un cliente */
 router.delete('/:id', middlewares, ClientController.remove);
 
+router.delete(
+  '/deleteByEmail/:email',
+  middlewares,
+  ClientController.deleteByEmail
+);
+
 /** @description Modificar la información de un cliente */
 router.put('/:id', middlewares, ClientController.update);
 

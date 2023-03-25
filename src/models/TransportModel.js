@@ -75,4 +75,19 @@ const list = async () => {
   return rows;
 };
 
-module.exports = { list, getById, getByEmail, signin, remove, update };
+const deleteByEmail = async (email) => {
+  const query = `DELETE FROM transport WHERE email = '%s'`;
+  const formatQuery = format(query, email);
+  await pool.query(formatQuery);
+  return { msj: 'Usuario eliminado exitosamente' };
+};
+
+module.exports = {
+  list,
+  getById,
+  getByEmail,
+  signin,
+  remove,
+  update,
+  deleteByEmail,
+};

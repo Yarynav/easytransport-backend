@@ -23,4 +23,10 @@ router.delete('/:id', middlewares, TransportController.remove);
 /** @description Modificar la información de un transportista */
 router.put('/:id', middlewares, TransportController.update);
 
+router.delete(
+  '/deleteByEmail/:email',
+  middlewares,
+  TransportController.deleteByEmail
+);
+
 module.exports = router;

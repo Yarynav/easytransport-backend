@@ -31,8 +31,18 @@ const update = async (req, res) => {
   }
 };
 
+const create = async (req, res) => {
+  try {
+    const response = await ShippingModel.create(req.body);
+    res.json({ msj: 'Creacion exitosa' });
+  } catch (e) {
+    res.status(500).json({ msj: 'Ha ocurrido un error' });
+  }
+};
+
 module.exports = {
   getByClientId,
   update,
   getById,
+  create,
 };
