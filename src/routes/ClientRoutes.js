@@ -5,12 +5,13 @@ const { loggerMiddleware } = require('../middlewares/LoggerMiddleware');
 const { loginMiddleware } = require('../middlewares/LoginMiddleware');
 const { validateFields } = require('../middlewares/ClientMiddleware');
 const middlewares = [loggerMiddleware, loginMiddleware];
+const signinMiddleware = [...middlewares, validateFields];
 
 /** @description Iniciar sesión como un cliente  */
 router.post('/login', loggerMiddleware, ClientController.login);
 
 /** @description Crear una cuenta para cliente  */
-router.post('/signin', loggerMiddleware, validateFields, ClientController.signin);
+router.post('/signin', signinMiddleware, ClientController.signin);
 
 /** @description Listado de todos los clientes */
 router.get('/', middlewares, ClientController.list);

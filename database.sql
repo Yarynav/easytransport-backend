@@ -1,5 +1,5 @@
 CREATE DATABASE easytransport  ;
--- c easytransport
+--    
 /**************Tablas****************/     
 --Tabla transport
 CREATE TABLE IF NOT EXISTS transport
@@ -66,7 +66,6 @@ REFERENCES "transport"("id")
 CREATE TABLE IF NOT EXISTS driver(
       id SERIAL PRIMARY KEY,
       transport_id INTEGER,
-      trip_id INTEGER,
       name VARCHAR (255) NOT NULL,
       last_name VARCHAR (255) NOT NULL,
       phone VARCHAR (15) NOT NULL,
@@ -86,8 +85,6 @@ CREATE TABLE IF NOT EXISTS trip(
       truck_id INTEGER,
       transport_id INTEGER,
       driver_id INTEGER,
-      driver_phone VARCHAR (15) NOT NULL,
-      diver_name VARCHAR (255) NOT NULL,
       country_origin VARCHAR(50) NOT NULL,
       country_destiny VARCHAR(50) NOT NULL,
       city_origin VARCHAR(50) NOT NULL,
@@ -144,7 +141,7 @@ FOREIGN KEY ("client_id")
 REFERENCES "client"("id")
 );
 --/**************Triggers****************/
-/Creacion de trigger para colocar fecha de actualizacion de driver/
+--/Creacion de trigger para colocar fecha de actualizacion de driver/
 BEGIN;
 CREATE OR REPLACE FUNCTION update_timestamp_driver()
 RETURNS TRIGGER AS $$
@@ -157,7 +154,7 @@ COMMIT;
 CREATE TRIGGER driver_timestamp BEFORE INSERT OR UPDATE ON driver
 FOR EACH ROW EXECUTE PROCEDURE update_timestamp_driver();
 COMMIT;
-/Creacion de trigger para colocar fecha de actualizacion de Shipping/
+--/Creacion de trigger para colocar fecha de actualizacion de Shipping/
 BEGIN;
 CREATE OR REPLACE FUNCTION update_timestamp_shipping()
 RETURNS TRIGGER AS $$
@@ -170,7 +167,7 @@ COMMIT;
 CREATE TRIGGER shipping_timestamp BEFORE INSERT OR UPDATE ON shipping
 FOR EACH ROW EXECUTE PROCEDURE update_timestamp_shipping();
 COMMIT;
-/Creacion de trigger para colocar fecha de actualizacion de trip/
+--/Creacion de trigger para colocar fecha de actualizacion de trip/
 BEGIN;
 CREATE OR REPLACE FUNCTION update_timestamp_trip()
 RETURNS TRIGGER AS $$
@@ -183,7 +180,7 @@ COMMIT;
 CREATE TRIGGER trip_timestamp BEFORE INSERT OR UPDATE ON trip
 FOR EACH ROW EXECUTE PROCEDURE update_timestamp_trip();
 COMMIT;
-/Creacion de trigger para colocar fecha de actualizacion de truck/
+--/Creacion de trigger para colocar fecha de actualizacion de truck/
 BEGIN;
 CREATE OR REPLACE FUNCTION update_timestamp_truck()
 RETURNS TRIGGER AS $$
@@ -197,7 +194,7 @@ CREATE TRIGGER truck_timestamp BEFORE INSERT OR UPDATE ON truck
 FOR EACH ROW EXECUTE PROCEDURE update_timestamp_truck();
 COMMIT;
 
-/Creacion de trigger para colocar fecha de actualizacion de transport/
+--/Creacion de trigger para colocar fecha de actualizacion de transport/
 BEGIN;
 CREATE OR REPLACE FUNCTION update_timestamp_transport()
 RETURNS TRIGGER AS $$
@@ -210,7 +207,7 @@ COMMIT;
 CREATE TRIGGER transport_timestamp BEFORE INSERT OR UPDATE ON transport
 FOR EACH ROW EXECUTE PROCEDURE update_timestamp_transport();
 COMMIT;
-      /Creacion de trigger para colocar fecha de actualizacion de client/
+--/Creacion de trigger para colocar fecha de actualizacion de client/
 BEGIN;
 CREATE OR REPLACE FUNCTION update_timestamp_client()
 RETURNS TRIGGER AS $$
