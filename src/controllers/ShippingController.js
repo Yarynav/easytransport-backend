@@ -33,10 +33,47 @@ const update = async (req, res) => {
 
 const create = async (req, res) => {
   try {
-    const response = await ShippingModel.create(req.body);
+    const {
+      trip_id,
+      transport_id,
+      client_id,
+      origin_address,
+      destiny_address,
+      date_retirement,
+      time_ini_retirement,
+      time_end_retirement,
+      date_delivery,
+      time_ini_delivery,
+      time_end_delivery,
+      type_load_shipping,
+      cubic_meters_shipping,
+      weight_shipping,
+      long_load_shipping,
+      wide_load_shipping,
+      high_load_shipping,
+    } = req.body;
+    const response = await ShippingModel.create({
+      trip_id,
+      transport_id,
+      client_id,
+      origin_address,
+      destiny_address,
+      date_retirement,
+      time_ini_retirement,
+      time_end_retirement,
+      date_delivery,
+      time_ini_delivery,
+      time_end_delivery,
+      type_load_shipping,
+      cubic_meters_shipping,
+      weight_shipping,
+      long_load_shipping,
+      wide_load_shipping,
+      high_load_shipping,
+    });
     res.json({ msj: 'Creacion exitosa' });
   } catch (e) {
-    res.status(500).json({ msj: 'Ha ocurrido un error' });
+    res.status(500).json({ msj: e });
   }
 };
 
