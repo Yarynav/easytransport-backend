@@ -107,7 +107,6 @@ const updatePassword = async (req, res) => {
     console.log('llego aca', password, id)
     password = bcrypt.hashSync(password)
     const response = await TransportModel.updatePassword(password, id)
-
     const transport = await TransportModel.getById(id)
     const tokenPayload = getTokenBody(transport)
     response === 'error'
