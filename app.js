@@ -5,7 +5,7 @@ const cors = require('cors');
 const CsbInspector = require('csb-inspector');
 CsbInspector();
 app.use(express.json());
-app.use(cors());
+app.use(cors({ origin: '*' }));
 app.use('/client', require('./src/routes/ClientRoutes'));
 app.use('/transport', require('./src/routes/TransportRoutes'));
 app.use('/trip', require('./src/routes/TripRoutes'));
