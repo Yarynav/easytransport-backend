@@ -11,7 +11,7 @@ const signinMiddleware = [...middlewares, validateFields]
 router.post('/login', loggerMiddleware, ClientController.login)
 
 /** @description Crear una cuenta para cliente  */
-router.post('/signin', signinMiddleware, ClientController.signin)
+router.post('/signin', loggerMiddleware, ClientController.signin)
 
 /** @description Listado de todos los clientes */
 router.get('/', middlewares, ClientController.list)
