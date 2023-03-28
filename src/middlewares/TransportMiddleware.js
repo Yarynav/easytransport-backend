@@ -3,20 +3,20 @@ const { duplicateUser } = require('../models/ClientModel')
 /**********************Valida creacion de usuario**********************/
 const validateFields = async (req, res, next) => {
   try {
-    const { email, password, name, lastname, phone, address, img } = req.body
+    const { email, password, name, last_name, phone, address, img } = req.body
     resp = parseInt(await duplicateUser(email))
     if (
       email === undefined ||
       password === undefined ||
       name === undefined ||
-      lastname === undefined ||
+      last_name === undefined ||
       phone === undefined ||
       address === undefined ||
       img === undefined ||
       email === '' ||
       password === '' ||
       name === '' ||
-      lastname === '' ||
+      last_name === '' ||
       phone === '' ||
       address === '' ||
       img === ''

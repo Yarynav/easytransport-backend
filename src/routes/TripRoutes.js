@@ -9,6 +9,9 @@ const middlewares = [loggerMiddleware, loginMiddleware, TripMiddleware];
 /** @description Crear un viaje  */
 router.post('/', loggerMiddleware, TripController.create);
 
+/** @description Crear un viaje  */
+router.get('/all', loggerMiddleware, TripController.all);
+
 /** @description Modificar la información de un viaje */
 router.put('/:id', loggerMiddleware, TripController.update);
 

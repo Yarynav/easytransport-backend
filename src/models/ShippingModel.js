@@ -108,34 +108,41 @@ const create = async (body) => {
     status,
   } = body;
   const query = `INSERT INTO shipping 
-  (trip_id, transport_id, client_id, drive_phone, drive_name, origin_address, destiny_address, date_retirement, time_ini_retirement, time_end_retirement, date_delivery, time_ini_delivery, time_end_delivery, type_load_shipping, cubic_meters_shipping, weight_shipping, long_load_shipping, wide_load_shipping, high_load_shipping, status) 
+  (
+    trip_id, 
+    transport_id, 
+    client_id, 
+    origin_address, 
+    destiny_address, 
+    type_load_shipping, 
+    cubic_meters_shipping, 
+    weight_shipping, 
+    long_load_shipping, 
+    wide_load_shipping, 
+    high_load_shipping, 
+    status
+  ) 
   VALUES
-  ('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')`;
+  (%s , %s , %s ,'%s','%s','%s', %s , %s , %s , %s , %s , '%s')`;
   const formatQuery = format(
     query,
     trip_id,
-    transport_id,
+    transport_id || 0,
     client_id,
-    drive_phone,
-    drive_name,
     origin_address,
     destiny_address,
-    date_retirement,
-    time_ini_retirement,
-    time_end_retirement,
-    date_delivery,
-    time_ini_delivery,
-    time_end_delivery,
+
     type_load_shipping,
     cubic_meters_shipping,
     weight_shipping,
     long_load_shipping,
     wide_load_shipping,
     high_load_shipping,
-    status
+    'No comenzado'
   );
+  console.log('format', formatQuery);
   await pool.query(formatQuery);
-  return await getById(shippingId);
+  return { msj: 'Envío creado exitosamente' };
 };
 
 module.exports = { getByClientId, getById, update, create };
