@@ -41,6 +41,7 @@ const getByClientId = async (clientId) => {
     FROM shipping s 
     LEFT JOIN client c ON c.id = s.client_id
     LEFT JOIN transport t ON t.id = s.transport_id
+    
     WHERE 
       s.client_id = '%s' AND 
       s.deleted_at = false
@@ -55,6 +56,33 @@ const getById = async (id) => {
   const formatQuery = format(`SELECT * from shipping WHERE id = '%s'`, [id])
   const { rows } = await pool.query(formatQuery)
   return rows[0]
+}
+
+const getByTripId = async (id) => {
+  const formatQuery = format(
+    `SELECT shipping.id as id_shipping,
+  trip_id,
+  client_id,
+  description,
+  origin_address,
+  destiny_address,
+  cubic_meters_shipping,
+  weight_shipping,
+  long_load_shipping,
+  wide_load_shipping,
+  high_load_shipping,
+  status,
+  transport_id,
+  name,
+  last_name,
+  email,
+  phone,
+  address,
+  img  FROM shipping INNER JOIN client ON shipping.client_id = client.id WHERE trip_id = '%s'`,
+    [id]
+  )
+  const { rows } = await pool.query(formatQuery)
+  return rows
 }
 
 const update = async (
@@ -80,6 +108,15 @@ const update = async (
     wide_load_shipping,
     shippingId
   )
+  await pool.query(formatQuery)
+  return await getById(shippingId)
+}
+
+const updateState = async (shippingId, { status }) => {
+  const query = `UPDATE shipping SET 
+    status= %s, 
+    WHERE id = %s`
+  const formatQuery = format(query, status, shippingId)
   await pool.query(formatQuery)
   return await getById(shippingId)
 }
@@ -133,4 +170,11 @@ const create = async ({
   }
 }
 
-module.exports = { getByClientId, getById, update, create }
+module.exports = {
+  getByClientId,
+  getById,
+  update,
+  create,
+  getByTripId,
+  updateState,
+}
