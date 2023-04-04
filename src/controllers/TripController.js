@@ -182,6 +182,19 @@ const softDelete = async (req, res) => {
   }
 }
 
+const updateState = async (req, res) => {
+  try {
+    const { id } = req.params
+    const { status } = req.body
+    const resp = await TripModel.updateState(id, status)
+    resp === 'error'
+      ? res.send('Error al actualizar el registro en la base de datos')
+      : res.send('Camion eliminado con éxito')
+  } catch (error) {
+    res.status(500).json({ message: 'Error actualizar estado' })
+  }
+}
+
 const all = async (req, res) => {
   const response = await TripModel.all()
   res.json(response)
@@ -195,4 +208,5 @@ module.exports = {
   softDelete,
   list,
   listforclient,
+  updateState,
 }

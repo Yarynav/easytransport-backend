@@ -143,7 +143,6 @@ const list = async (transport_id) => {
 
 const softDelete = async (id) => {
   try {
-    console.log('soy sofdetele y este es mi id', id)
     const values = [id]
     const consulta = 'UPDATE trip set deleted_at = true WHERE id=$1'
     await pool.query(consulta, values)
@@ -152,6 +151,23 @@ const softDelete = async (id) => {
   }
 }
 
+const updateState = async (id, status) => {
+  try {
+    const values = [status, id]
+    const consulta = 'UPDATE trip set status = $1 WHERE id=$2'
+    await pool.query(consulta, values)
+  } catch (error) {
+    return 'error'
+  }
+
+  try {
+    const values = [status, id]
+    const consulta = 'UPDATE shipping set status = $1 WHERE trip_id=$2'
+    await pool.query(consulta, values)
+  } catch (error) {
+    return 'error'
+  }
+}
 const all = async () => {
   const formatQuery = format('SELECT * FROM trip ORDER BY id DESC')
   const { rows } = await pool.query(formatQuery)
@@ -243,4 +259,5 @@ module.exports = {
   softDelete,
   list,
   listforclient,
+  updateState,
 }

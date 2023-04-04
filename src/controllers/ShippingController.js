@@ -10,6 +10,16 @@ const getByClientId = async (req, res) => {
   }
 }
 
+const getByTripId = async (req, res) => {
+  try {
+    const tripId = req.params.id
+    const shippings = await ShippingModel.getByTripId(tripId)
+    res.json(shippings)
+  } catch (e) {
+    res.status(500).json({ message: e + '' })
+  }
+}
+
 const getById = async (req, res) => {
   try {
     const shippingId = req.params.id
@@ -25,6 +35,17 @@ const update = async (req, res) => {
     const shippingId = req.params.id
     const body = req.body
     const shipping = await ShippingModel.update(shippingId, body)
+    res.json(shipping)
+  } catch (e) {
+    res.status(500).json({ message: e + '' })
+  }
+}
+const updateState = async (req, res) => {
+  try {
+    const shippingId = req.params.id
+    const body = req.body
+    console.log('accaaaaaa datos', shippingId, body)
+    const shipping = await ShippingModel.updateState(shippingId, body)
     res.json(shipping)
   } catch (e) {
     res.status(500).json({ message: e + '' })
@@ -73,4 +94,6 @@ module.exports = {
   update,
   getById,
   create,
+  getByTripId,
+  updateState,
 }

@@ -27,4 +27,6 @@ router.post('/listforclient', loggerMiddleware, TripController.listforclient)
 /** @description Modificar el estado de un viaje */
 router.put('/softdelete/:id', loggerMiddleware, TripController.softDelete)
 
+/** @description Modificar el estado de un viaje */
+router.put('/state/:id', loggerMiddleware, TripController.updateState)
 module.exports = router
